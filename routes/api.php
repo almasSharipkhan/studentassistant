@@ -17,10 +17,26 @@ use Illuminate\Http\Request;
 Route::post('/register', 'Auth\RegisterController@register');
 Route::post('/login', 'Auth\LoginController@login');
 
+//User
+
 Route::middleware('auth:api')->post('/events', 'EventController@eventGo');
 
 Route::middleware('auth:api')->get('/details', 'UserController@detail');
 
-Route::get('/teacher_schedule', 'ScheduleController@getTeacherById');
-
 Route::middleware('auth:api')->get('/user_reminders', 'UserController@userReminders');
+
+Route::middleware('auth:api')->post('/user_dean_ask', 'UserController@deanAsk');
+
+//Schedule
+
+Route::get('/schedule_group', 'ScheduleController@getScheduleByGroupId');
+
+Route::get('/schedule_room', 'ScheduleController@getScheduleByRoomId');
+
+Route::get('/schedule_free_rooms', 'ScheduleController@getFreeRoomsSchedulesByRoomDate');
+
+Route::get('/teacher_schedule', 'ScheduleController@getTeacherByUserId');
+
+Route::get('/speciality_schedule', 'ScheduleController@specialities');
+
+Route::middleware('auth:api')->post('/reserve_room', 'ScheduleController@reserveRoom');

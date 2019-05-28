@@ -10,13 +10,13 @@ class Department extends Model
 
     protected $primaryKey = 'dep_id';
 
-    protected $attributes = [
-        'teachers_quantity' => 0,
-    ];
-
     protected $fillable = [
         'dep_name',
-        'head_of_dep',
+        'dep_head_of',
+    ];
+
+    protected $attributes = [
+        'dep_teachers_quantity' => 0,
     ];
 
     public $timestamps = false;

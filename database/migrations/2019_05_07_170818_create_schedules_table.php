@@ -23,6 +23,7 @@ class CreateSchedulesTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('group_id')->unsigned();
             $table->foreign('group_id')->references('group_id')->on('groups');
+            $table->string("schedule_type");
             $table->enum('schedule_day', [
                 'Monday' => 1,
                 'Tuesday' => 2,
@@ -32,7 +33,7 @@ class CreateSchedulesTable extends Migration
                 'Saturday' => 6,
                 'Sunday' => 7,
             ]);
-            $table->dateTimeTz('schedule_date');
+            $table->dateTime('schedule_date');
         });
     }
 

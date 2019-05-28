@@ -13,4 +13,16 @@ class Subject extends Model
     protected $fillable = [
         'sub_name',
     ];
+
+    public $timestamps = false;
+
+    public function schedules()
+    {
+        return $this->belongsToOne('App\schedule');
+    }
+
+    public function scopeSubjectBySubjectId($query, $sub_id)
+    {
+        return $query->where('sub_id', $sub_id);
+    }
 }

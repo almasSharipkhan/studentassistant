@@ -24,7 +24,7 @@ class CreateGroupsTable extends Migration
             ]);
             $table->integer('spec_id')->unsigned();
             $table->foreign('spec_id')->references('spec_id')->on('specialities');
-            $table->integer('students_quantity');
+            $table->integer('group_students_quantity');
         });
     }
 

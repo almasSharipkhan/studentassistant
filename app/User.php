@@ -25,9 +25,14 @@ class User extends Authenticatable
         'user_role',
         'user_name',
         'user_surname',
-        'user_email',
-        'password',
+        'email',
         'user_birthday',
+        'password',
+    ];
+
+    protected $attributes = [
+        'group_id' => 5,
+        'user_course' => 4,
     ];
 
     /**
@@ -40,4 +45,44 @@ class User extends Authenticatable
     ];
 
     public $timestamps = false;
+
+    public function schedules()
+    {
+        return $this->belongsToOne('App\Schedule');
+    }
+
+    public function scopeUserByUserId($query, $user_id)
+    {
+        return $query->where('id', $user_id);
+    }
+
+    public function scopeUserByUserEmail($query, $user_email)
+    {
+        return $query->where('user_email', $user_email);
+    }
+
+    public function scopeUsersByUserRole($query, $role)
+    {
+        return $query->where('user_role', $role);
+    }
+
+    public function scopeStudents($query)
+    {
+        return $query->usersByUserRole(1);
+    }
+
+    public function scopeStudentsByGroupId($query, $group_id)
+    {
+        return $query->students()->where('group_id', $group_id);
+    }
+
+    public function scopeTeachers($query)
+    {
+        return $query->usersByUserRole(2);
+    }
+
+    public function scopeTeacherByUserID($query, $user_id)
+    {
+        return $query->teachers()->userByUserId($user_id);
+    }
 }

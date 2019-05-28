@@ -10,15 +10,20 @@ class Group extends Model
 
     protected $primaryKey = 'group_id';
 
-    protected $attributes = [
-        'students_quantity' => 0,
-    ];
-
     protected $fillable = [
         'group_name',
         'group_course',
         'spec_id',
     ];
 
+    protected $attributes = [
+        'group_students_quantity' => 0,
+    ];
+
     public $timestamps = false;
+
+    public function schedules()
+    {
+        return $this->belongsToOne('App\Schedule');
+    }
 }

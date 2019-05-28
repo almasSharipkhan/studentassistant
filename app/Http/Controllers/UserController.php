@@ -19,6 +19,24 @@ class UserController extends Controller
 
     public function userReminders()
     {
-        return response()->json(UserEvent::getEventIdAndDate(Auth::id()));
+        $user_events = \App\UserEvent::userEventsByUserId(Auth::id())->get();
+        $i = 0;
+        $events = null;
+        foreach ($user_events as $user_event)
+        {
+            $event['event_id'] = $user_event->event_id;
+            $event['event_date'] = $user_event->events->event_date;
+            $events[$i] = $event;
+            $i++;
+        }
+        return response()->json($events);
+    }
+
+    public function deanAsk()
+    {
+        $question = new \App\Question();
+        $question->question_content = request('question_content');
+        $question->save();
+        return response()->json("success");
     }
 }
